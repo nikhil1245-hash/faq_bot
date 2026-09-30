@@ -1,0 +1,98 @@
+[
+  {
+    "question": "How do I apply for admission?",
+    "answer": "Fill out the online application form on the college admissions portal, upload your academic transcripts and ID proof, and pay the application fee. You'll receive a confirmation email within 3-5 working days."
+  },
+  {
+    "question": "What documents are required for admission?",
+    "answer": "You'll need your 10th and 12th mark sheets, a transfer certificate, a migration certificate, passport-size photographs, and a valid government ID (Aadhar card or passport)."
+  },
+  {
+    "question": "What is the last date to submit the application?",
+    "answer": "Admissions typically close by the end of June for the fall semester and by the end of December for the spring semester. Check the academic calendar on the college website for exact dates."
+  },
+  {
+    "question": "How much is the tuition fee?",
+    "answer": "Tuition fees vary by program. Undergraduate engineering programs typically range from 1.5 to 3 lakh rupees per year. Visit the Fees section of the portal for your specific program's breakdown."
+  },
+  {
+    "question": "Can I pay fees in installments?",
+    "answer": "Yes, the college offers a semester-wise installment plan. You can opt for this when completing your fee payment on the student portal, or contact the accounts office directly."
+  },
+  {
+    "question": "Is there a scholarship available?",
+    "answer": "Yes, merit-based and need-based scholarships are available. Merit scholarships are awarded based on your entrance exam rank or prior academic performance; need-based aid requires submitting income proof to the scholarship office."
+  },
+  {
+    "question": "How do I apply for a scholarship?",
+    "answer": "Log in to the student portal, go to the Scholarships tab, and submit the required documents before the deadline listed there. Awards are usually announced within 4-6 weeks."
+  },
+  {
+    "question": "How do I get a hostel room?",
+    "answer": "Apply for hostel accommodation through the Hostel section of the student portal after your admission is confirmed. Rooms are allotted on a first-come, first-served basis, subject to availability."
+  },
+  {
+    "question": "What are the hostel fees?",
+    "answer": "Hostel fees depend on room type: shared rooms cost around 60,000 rupees per year, while single rooms cost around 90,000 rupees per year, including mess charges."
+  },
+  {
+    "question": "Is mess food included in hostel fees?",
+    "answer": "Yes, mess charges for three meals a day are included in the standard hostel fee package. Special dietary requirements can be arranged by contacting the hostel warden."
+  },
+  {
+    "question": "When do exams start?",
+    "answer": "End-semester exams usually begin in the last week of November for the fall semester and the last week of April for the spring semester. The exact schedule is published on the academic calendar a month in advance."
+  },
+  {
+    "question": "How can I check my exam results?",
+    "answer": "Results are published on the student portal under the Academics tab, usually within 3 weeks of the last exam. You'll also get an email notification when results are out."
+  },
+  {
+    "question": "What if I fail a subject?",
+    "answer": "You can register for a supplementary/re-exam in the following semester through the Academics tab. A re-exam fee applies, and details are listed in the academic regulations document."
+  },
+  {
+    "question": "How do I request a transcript?",
+    "answer": "Submit a transcript request through the Registrar's section of the student portal. Transcripts are usually issued within 5-7 working days for a nominal fee."
+  },
+  {
+    "question": "What is the minimum attendance requirement?",
+    "answer": "Students must maintain at least 75% attendance in each subject to be eligible to sit for the end-semester exam, as per college regulations."
+  },
+  {
+    "question": "How do I access the library?",
+    "answer": "Your student ID card doubles as your library card. Visit the library with your ID to borrow books, or use the online catalog on the college portal to reserve titles in advance."
+  },
+  {
+    "question": "How many books can I borrow at once?",
+    "answer": "Undergraduate students can borrow up to 4 books at a time for a period of 14 days, with one renewal allowed if no one else has reserved the title."
+  },
+  {
+    "question": "How do I reset my student portal password?",
+    "answer": "Click 'Forgot Password' on the login page and follow the instructions sent to your registered email. If you no longer have access to that email, contact the IT helpdesk with your student ID."
+  },
+  {
+    "question": "How do I contact the IT helpdesk?",
+    "answer": "Email helpdesk@college.edu or visit the IT support desk in the Admin block, open Monday to Saturday, 9 AM to 5 PM."
+  },
+  {
+    "question": "When do campus placements happen?",
+    "answer": "Placement season typically runs from August to December for final-year students, with pre-placement talks starting in July. Register with the Training and Placement Cell to get updates."
+  },
+  {
+    "question": "How do I register for placements?",
+    "answer": "Log in to the placement portal, complete your profile with your resume and academic details, and opt in to the companies you're eligible for based on your CGPA and branch."
+  },
+  {
+    "question": "Can I change my branch after the first year?",
+    "answer": "Branch change requests are considered after the first year based on your CGPA and seat availability in the target branch. Applications open shortly after first-year results are declared."
+  },
+  {
+    "question": "How do I apply for a bonafide certificate?",
+    "answer": "Request a bonafide certificate through the Registrar's section of the student portal, stating the purpose (bank loan, passport, etc.). It's usually issued within 3 working days."
+  },
+  {
+    "question": "Where can I raise a complaint or grievance?",
+    "answer": "Use the Grievance Redressal section on the student portal, or approach your department's Student Welfare Officer directly for academic or personal concerns."
+  }
+]
