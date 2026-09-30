@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deskmate — FAQ Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #E7ECE8;
+    --panel: #FFFFFF;
+    --ink: #1F2A24;
+    --ink-soft: #5B695F;
+    --line: #CBD5CD;
+    --teal: #3B6E5E;
+    --teal-dark: #294C40;
+    --amber: #C97A3D;
+    --bot-bubble: #F0F3EF;
+    --user-bubble: #3B6E5E;
+    --shadow: rgba(31,42,36,0.12);
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background: var(--bg);
+    background-image: linear-gradient(var(--bg) 39px, rgba(31,42,36,0.05) 40px);
+    background-size: 100% 40px;
+    font-family:'IBM Plex Sans', sans-serif;
+    color: var(--ink);
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding: 40px 16px 60px;
+  }
+
+  .desk{
+    width:100%;
+    max-width: 620px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 2px 0 var(--shadow);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .desk-header{
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+  .desk-mark{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size: 16px;
+    flex-shrink:0;
+  }
+  .desk-title{
+    font-family:'Newsreader', serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height:1.2;
+  }
+  .desk-sub{
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .status-dot{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .status-dot::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background: var(--teal);
+  }
+
+  .chat-window{
+    height: 460px;
+    overflow-y: auto;
+    padding: 20px 20px 8px;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+
+  .msg{
+    max-width: 82%;
+    display:flex;
+    flex-direction:column;
+    gap: 6px;
+  }
+  .msg.bot{ align-self:flex-start; }
+  .msg.user{ align-self:flex-end; align-items:flex-end; }
+
+  .bubble{
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    line-height:1.5;
+  }
+  .msg.bot .bubble{
+    background: var(--bot-bubble);
+    color: var(--ink);
+    border-bottom-left-radius: 3px;
+  }
+  .msg.user .bubble{
+    background: var(--user-bubble);
+    color: #fff;
+    border-bottom-right-radius: 3px;
+  }
+
+  .match-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    padding: 0 4px;
+    line-height:1.4;
+  }
+  .match-tag b{ color: var(--teal-dark); font-weight:500; }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .chip{
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--teal-dark);
+    font-size: 12.5px;
+    padding: 7px 11px;
+    border-radius: 14px;
+    cursor:pointer;
+    font-family:'IBM Plex Sans', sans-serif;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .chip:hover{ background: var(--teal); color:#fff; border-color: var(--teal); }
+
+  .typing{
+    display:flex;
+    gap: 4px;
+    padding: 12px 14px;
+    background: var(--bot-bubble);
+    border-radius: 12px;
+    border-bottom-left-radius: 3px;
+    width: fit-content;
+  }
+  .typing span{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--ink-soft);
+    opacity:0.5;
+    animation: bounce 1s infinite ease-in-out;
+  }
+  .typing span:nth-child(2){ animation-delay: 0.15s; }
+  .typing span:nth-child(3){ animation-delay: 0.3s; }
+  @keyframes bounce{ 0%,60%,100%{ transform:translateY(0); opacity:0.5;} 30%{ transform:translateY(-4px); opacity:1;} }
+
+  .composer{
+    display:flex;
+    gap: 10px;
+    padding: 14px 16px;
+    border-top: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .composer input{
+    flex:1;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 11px 16px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  .composer input:focus-visible{ outline: 2px solid var(--teal); outline-offset: 1px; }
+  .composer button{
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: var(--teal);
+    color: #fff;
+    font-size: 16px;
+    cursor:pointer;
+    flex-shrink:0;
+    transition: background 0.15s ease;
+  }
+  .composer button:hover{ background: var(--teal-dark); }
+  .composer button:disabled{ opacity:0.4; cursor:not-allowed; }
+
+  .chat-window::-webkit-scrollbar{ width: 8px; }
+  .chat-window::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="desk">
+  <div class="desk-header">
+    <div class="desk-mark">D</div>
+    <div>
+      <div class="desk-title">Deskmate</div>
+      <div class="desk-sub">TechNest support desk</div>
+    </div>
+    <div class="status-dot">online</div>
+  </div>
+
+  <div class="chat-window" id="chatWindow"></div>
+
+  <div class="composer">
+    <input type="text" id="userInput" placeholder="Ask a question…" autocomplete="off">
+    <button id="sendBtn" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   1. FAQ DATASET
+   Swap this array for your own product/topic — question,
+   answer, and optional tags (extra keywords that should
+   count toward a match but don't appear in the question).
+--------------------------------------------------------- */
+const FAQS = [
+  { q: "What is the estimated delivery time for my order?",
+    a: "Standard delivery takes 3–5 business days within the country. Express delivery, where available, takes 1–2 business days.",
+    tags: "shipping arrive when" },
+  { q: "How can I track my order?",
+    a: "Once your order ships, you'll receive a tracking link by email and SMS. You can also find it under 'My Orders' in your account.",
+    tags: "where is my package status" },
+  { q: "What is your return policy?",
+    a: "Most items can be returned within 15 days of delivery if unused and in original packaging. Some categories like innerwear and perishables are non-returnable.",
+    tags: "send back item exchange" },
+  { q: "How do I request a refund?",
+    a: "Refunds are initiated automatically once a returned item passes quality check, and usually reflect in your account within 5–7 business days.",
+    tags: "money back reimbursement" },
+  { q: "What payment methods do you accept?",
+    a: "We accept credit/debit cards, UPI, net banking, popular wallets, and cash on delivery for eligible pin codes.",
+    tags: "pay how card upi cod" },
+  { q: "Can I cancel my order after placing it?",
+    a: "Orders can be cancelled for free anytime before they're shipped. Go to 'My Orders' and select Cancel next to the relevant order.",
+    tags: "stop order change mind" },
+  { q: "Can I change my delivery address after ordering?",
+    a: "You can update the address within 1 hour of placing the order from 'My Orders'. After that, please contact support for assistance.",
+    tags: "wrong address update location" },
+  { q: "Do your products come with a warranty?",
+    a: "Most electronics carry a 1-year manufacturer warranty. The exact warranty period is listed on each product's page.",
+    tags: "guarantee coverage repair" },
+  { q: "Is cash on delivery available?",
+    a: "Yes, cash on delivery is available for most pin codes, with a small convenience fee that's shown at checkout.",
+    tags: "cod pay cash" },
+  { q: "Do you offer any discounts or coupon codes?",
+    a: "Active offers are shown on the homepage banner and the checkout page automatically applies any coupon you enter there.",
+    tags: "promo code sale deal" },
+  { q: "How do I create an account?",
+    a: "Tap 'Sign up' on the top right, enter your email or phone number, and verify with the OTP sent to you.",
+    tags: "register sign up new user" },
+  { q: "I forgot my password. How do I reset it?",
+    a: "Click 'Forgot password' on the login screen, and we'll send a reset link to your registered email address.",
+    tags: "login trouble cant sign in" },
+  { q: "How do I contact customer support?",
+    a: "You can reach us via live chat here, email at support@technest.example, or call our helpline between 9 AM and 9 PM.",
+    tags: "help talk human agent" },
+  { q: "How do I know if a product is in stock?",
+    a: "In-stock products show an 'Add to Cart' button. If a product is unavailable, you'll see a 'Notify Me' option instead.",
+    tags: "available inventory sold out" },
+  { q: "Do you ship internationally?",
+    a: "Currently we only ship within the country. International shipping is on our roadmap — we'll announce it on our homepage when it launches.",
+    tags: "abroad overseas country" },
+  { q: "What if I receive a damaged or defective product?",
+    a: "Please raise a replacement request within 48 hours of delivery from 'My Orders', and we'll arrange a free pickup and replacement.",
+    tags: "broken faulty wrong item" },
+];
+
+/* ---------------------------------------------------------
+   2. PREPROCESSING (tokenize, clean, light stemming)
+   A compact stand-in for what NLTK/spaCy would do server-side,
+   run client-side in JS.
+--------------------------------------------------------- */
+const STOPWORDS = new Set(("a an the is are was were be been being do does did "+
+  "i you he she it we they my your his her its our their this that these those "+
+  "and or but if so to of in on for with at by from as about into over after "+
+  "before up down out not no can could would should will just than then there "+
+  "here what which who whom will can't don't doesn't isn't im i'm please help me").split(" "));
+
+function stem(word){
+  // minimal suffix-stripping stemmer (Porter-lite), good enough for FAQ matching
+  return word
+    .replace(/(ing|ers|er|ed|ies|ly)$/,'')
+    .replace(/s$/, m => word.length > 3 ? '' : m);
+}
+
+function preprocess(text){
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w && !STOPWORDS.has(w))
+    .map(stem)
+    .filter(w => w.length > 1);
+}
+
+/* ---------------------------------------------------------
+   3. TF-IDF VECTORS + COSINE SIMILARITY
+--------------------------------------------------------- */
+const faqTokens = FAQS.map(f => preprocess(f.q + " " + f.a + " " + (f.tags || "")));
+
+const df = {};
+faqTokens.forEach(tokens => {
+  new Set(tokens).forEach(t => { df[t] = (df[t] || 0) + 1; });
+});
+const N = FAQS.length;
+function idf(term){ return Math.log(N / (1 + (df[term] || 0))) + 1; }
+
+function tfidfVector(tokens){
+  const tf = {};
+  tokens.forEach(t => { tf[t] = (tf[t] || 0) + 1; });
+  const vec = {};
+  Object.keys(tf).forEach(t => {
+    if (df[t]) vec[t] = tf[t] * idf(t);
+  });
+  return vec;
+}
+
+const faqVectors = faqTokens.map(tfidfVector);
+
+function cosineSim(a, b){
+  let dot = 0, na = 0, nb = 0;
+  for (const k in a) na += a[k] * a[k];
+  for (const k in b) nb += b[k] * b[k];
+  const keys = Object.keys(a).length < Object.keys(b).length ? Object.keys(a) : Object.keys(b);
+  keys.forEach(k => { if (a[k] && b[k]) dot += a[k] * b[k]; });
+  if (!na || !nb) return 0;
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+const MATCH_THRESHOLD = 0.12;
+
+function findBestMatch(query){
+  const qVec = tfidfVector(preprocess(query));
+  let bestIdx = -1, bestScore = 0;
+  faqVectors.forEach((vec, i) => {
+    const score = cosineSim(qVec, vec);
+    if (score > bestScore) { bestScore = score; bestIdx = i; }
+  });
+  return { idx: bestIdx, score: bestScore };
+}
+
+/* ---------------------------------------------------------
+   4. CHAT UI
+--------------------------------------------------------- */
+const chatWindow = document.getElementById('chatWindow');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+
+function scrollDown(){ chatWindow.scrollTop = chatWindow.scrollHeight; }
+
+function addUserMessage(text){
+  const div = document.createElement('div');
+  div.className = 'msg user';
+  div.innerHTML = `<div class="bubble"></div>`;
+  div.querySelector('.bubble').textContent = text;
+  chatWindow.appendChild(div);
+  scrollDown();
+}
+
+function addBotMessage(text, matchInfo){
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+  div.appendChild(bubble);
+  if (matchInfo) {
+    const tag = document.createElement('div');
+    tag.className = 'match-tag';
+    tag.innerHTML = `Matched “<b>${matchInfo.q}</b>” — ${matchInfo.pct}% confidence`;
+    div.appendChild(tag);
+  }
+  chatWindow.appendChild(div);
+  scrollDown();
+}
+
+function addChips(questions){
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  const wrap = document.createElement('div');
+  wrap.className = 'chips';
+  questions.forEach(q => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = q;
+    chip.addEventListener('click', () => handleUserMessage(q));
+    wrap.appendChild(chip);
+  });
+  div.appendChild(wrap);
+  chatWindow.appendChild(div);
+  scrollDown();
+}
+
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.id = 'typingIndicator';
+  div.innerHTML = `<div class="typing"><span></span><span></span><span></span></div>`;
+  chatWindow.appendChild(div);
+  scrollDown();
+}
+function hideTyping(){
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+function handleUserMessage(text){
+  text = text.trim();
+  if (!text) return;
+  addUserMessage(text);
+  userInput.value = '';
+  sendBtn.disabled = true;
+  showTyping();
+
+  setTimeout(() => {
+    hideTyping();
+    const { idx, score } = findBestMatch(text);
+    if (idx === -1 || score < MATCH_THRESHOLD) {
+      addBotMessage("I don't have an answer for that yet. Try rephrasing, or pick one of these:");
+      addChips(sampleQuestions());
+    } else {
+      const faq = FAQS[idx];
+      addBotMessage(faq.a, { q: faq.q, pct: Math.round(Math.min(score, 1) * 100) });
+    }
+    sendBtn.disabled = false;
+    userInput.focus();
+  }, 450 + Math.random() * 300);
+}
+
+function sampleQuestions(n = 3){
+  const shuffled = [...FAQS].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, n).map(f => f.q);
+}
+
+sendBtn.addEventListener('click', () => handleUserMessage(userInput.value));
+userInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserMessage(userInput.value); });
+
+// greeting
+addBotMessage("Hi! I'm Deskmate, TechNest's FAQ assistant. Ask me about orders, returns, payments, or your account.");
+addChips(sampleQuestions());
+</script>
+
+</body>
+</html>
